@@ -8,7 +8,7 @@ import {logout} from '@/auth/services'
 import {useNavigate} from "react-router-dom";
 
 export const Header = () => {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(-1);
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 

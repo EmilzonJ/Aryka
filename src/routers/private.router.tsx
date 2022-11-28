@@ -1,8 +1,8 @@
 import {Route, Routes} from "react-router-dom";
 import {PrivateRoute} from "@/auth/components";
-import {Dashboard} from "@/pages";
 import {Header} from "@/components";
 import {AppointmentList} from "@/features/appointments/components";
+import {Dashboard} from "@/pages";
 
 
 export const NotFoundPage = () => {

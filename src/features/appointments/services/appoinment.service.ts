@@ -1,13 +1,29 @@
+import {collection, query, where, getDocs} from "firebase/firestore";
+
+import {db} from "@/firebase";
+
 import {Appointment} from "@/features/appointments/models";
+import {getCurrentUser} from "@/features/users/services";
+import {SnackbarUtilities} from "@/utilities";
 
-const appointments: Appointment[] = [
-  {
-    id: "1",
-    customer_name: "John Doe",
+export const getAllAppointments = async (): Promise<Appointment[]> => {
+
+  const appointments: Appointment[] = [];
+
+  try {
+    const currentUser = await getCurrentUser();
+
+    const appointmentsRef = collection(db, "appointments");
+    const q = query(appointmentsRef, where("userId", "==", currentUser?.uid));
+
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      appointments.push(doc.data() as Appointment);
+    });
+  } catch (error) {
+    SnackbarUtilities.error('Error al obtener las citas');
   }
-]
 
-export const getAllAppointments = (): Appointment[] => {
-  //TODO: fetch appointments from firebase
   return appointments;
 }
