@@ -15,6 +15,7 @@
     "@mui/icons-material": "5.10.9",
     "@mui/material": "5.10.13",
     "@mui/styled-engine-sc": "5.10.6",
+    "@mui/x-data-grid": "^5.17.13",
     "firebase": "9.14.0",
     "localforage": "1.10.0",
     "match-sorter": "6.3.1",

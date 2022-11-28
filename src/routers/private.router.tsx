@@ -2,6 +2,7 @@ import {Route, Routes} from "react-router-dom";
 import {PrivateRoute} from "@/auth/components";
 import {Dashboard} from "@/pages";
 import {Header} from "@/components";
+import {AppointmentList} from "@/features/appointments/components";
 
 
 export const NotFoundPage = () => {
@@ -19,7 +20,7 @@ export const PrivateRouter = () => {
       <Routes>
         <Route element={<PrivateRoute/>}>
           <Route path="/" element={<Dashboard/>}/>
-          <Route path="/citas" element={<Dashboard/>}/>
+          <Route path="/citas" element={<AppointmentList />}/>
           <Route path="*" element={<NotFoundPage/>}/>
         </Route>
       </Routes>
