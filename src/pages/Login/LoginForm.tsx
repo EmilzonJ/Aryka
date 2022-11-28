@@ -1,31 +1,37 @@
-import {useState} from "react";
-
-import {Navigate} from 'react-router-dom'
+import {Navigate} from "react-router-dom";
 
 import {useForm} from "react-hook-form";
+
 import {yupResolver} from "@hookform/resolvers/yup";
 
 import {Box, Button, Grid, Typography} from "@mui/material";
+
 import {LoginOutlined} from "@mui/icons-material";
 
-import {LoginProps} from "@/pages/Login";
-import {LoginSchema} from "@/pages/Login";
+import {LoginFormData, LoginValidations} from "@/pages/Login";
 
-import {SnackbarUtilities} from '@/utilities'
+import {Input, InputType, Loader} from "@/components";
+import {useAuth} from "@/context";
+import {login} from "@/auth";
 
-import {Input, InputType} from "@/components";
+export const LoginForm = () => {
+  const {isAuthenticated, isLoading} = useAuth();
 
-export const Login = () => {
-  const submitForm = (data: LoginProps) => {
-    setIsLogged(true);
-    SnackbarUtilities.success('Bienvenido', {vertical: 'bottom', horizontal: 'right'});
-  };
+  const submitForm = (data: LoginFormData) => {
+    return login(data);
+  }
 
-  const [isLogged, setIsLogged] = useState(false);
-
-  const {register, handleSubmit, formState} = useForm<LoginProps>({
-    resolver: yupResolver(LoginSchema)
+  const {register, handleSubmit, formState} = useForm<LoginFormData>({
+    resolver: yupResolver(LoginValidations)
   })
+
+  if (isLoading) {
+    return <Loader/>
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to="/citas"/>
+  }
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>
@@ -94,8 +100,6 @@ export const Login = () => {
           </Button>
         </Box>
       </Grid>
-
-      { isLogged && <Navigate to="/" replace={true}/> }
     </form>
   )
 }
