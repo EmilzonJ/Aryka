@@ -1,4 +1,4 @@
-export type LoginProps = {
+export type LoginFormData = {
   email: string,
   password: string
 };
