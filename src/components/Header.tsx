@@ -5,25 +5,29 @@ import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import {Drawer} from "@/components";
 
 import {logout} from '@/auth/services'
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export const Header = () => {
-  const [value, setValue] = useState(-1);
-  const theme = useTheme();
-  const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+  const location = useLocation();
 
+  const [value, setValue] = useState<string>(location.pathname);
+  const theme = useTheme();
+
+  const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const handleLogout = async () => {
     await logout();
-  }
 
-  const onChange = (event: React.SyntheticEvent, newValue: number) => {
+  }
+  const onChange = (newValue: string) => {
     setValue(newValue);
-  }
 
+  }
   const navigate = useNavigate();
   const handleNavigate = (path: string) => {
     navigate(path);
+
   }
+
 
   return (
     <React.Fragment>
@@ -46,17 +50,20 @@ export const Header = () => {
                 indicatorColor="secondary"
                 textColor="inherit"
                 value={value}
-                onChange={(e, value) => onChange(e, value)}
+                onChange={(e, value) => onChange(value)}
               >
                 <Tab
+                  value='/citas'
                   label="Citas"
                   onClick={() => handleNavigate("/citas")}
                 />
                 <Tab
+                  value='/servicios'
                   label="Servicios"
                   onClick={() => handleNavigate("/servicios")}
                 />
                 <Tab
+                  value='/usuarios'
                   label="Usuarios"
                   onClick={() => handleNavigate("/usuarios")}
                 />
