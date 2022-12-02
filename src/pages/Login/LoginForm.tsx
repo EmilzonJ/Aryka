@@ -30,7 +30,7 @@ export const LoginForm = () => {
   }
 
   if (isAuthenticated) {
-    return <Navigate to="/citas"/>
+    return <Navigate to="/"/>
   }
 
   return (
