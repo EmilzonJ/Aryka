@@ -6,7 +6,7 @@ export interface DataTableProps {
   subtractHeight?: string;
 }
 
-export const DataTable = ({columns, rows, subtractHeight = '64px'}: DataTableProps) => {
+export const DataTable = ({columns, rows, subtractHeight = '140px'}: DataTableProps) => {
   return (
     <div style={{height: `calc(100vh - ${subtractHeight})`, width: '100%'}}>
       <DataGrid

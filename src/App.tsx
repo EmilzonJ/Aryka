@@ -12,13 +12,13 @@ import {MainRouter} from "@/routers";
 
 export const App = () => {
   return (
-    // <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <SnackbarProvider>
         <SnackbarUtilsConfigurator/>
         <AuthProvider>
           <MainRouter/>
         </AuthProvider>
       </SnackbarProvider>
-    // </ThemeProvider>
+    </ThemeProvider>
   )
 }

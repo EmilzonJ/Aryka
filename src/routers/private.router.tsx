@@ -21,6 +21,7 @@ export const PrivateRouter = () => {
         <Route element={<PrivateRoute/>}>
           <Route path="/" element={<Dashboard/>}/>
           <Route path="/citas" element={<AppointmentList />}/>
+          <Route path="/servicios" element={<Dashboard />}/>
           <Route path="*" element={<NotFoundPage/>}/>
         </Route>
       </Routes>

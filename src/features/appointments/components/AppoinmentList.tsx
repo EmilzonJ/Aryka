@@ -6,7 +6,7 @@ import {Button} from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useAuth} from "@/context";
-import {DataTable} from "@/components";
+import {DataTable, FormDialog} from "@/components";
 import {toLocalDate} from "@/utilities";
 
 const onDelete = (id: number) => {
@@ -102,6 +102,9 @@ export const AppointmentList = () => {
   }, []);
 
   return (
-    <DataTable columns={columns} rows={appointments}/>
+    <>
+      <FormDialog/>
+      <DataTable columns={columns} rows={appointments}/>
+    </>
   )
 }
