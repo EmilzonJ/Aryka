@@ -68,15 +68,15 @@ export const UsersList = () => {
     const [users, setUsers] = useState<User[]>([]);
 
 
-    useEffect(() =>{
+    useEffect(() => {
             const unsubscribe = getAllUsers(
                 (data) => setUsers(data))
             return () => unsubscribe();
         },
         []
     );
-    
-    return(
+
+    return (
         <>
             <FormDialog/>
             <DataTable columns={columns} rows={users}/>
