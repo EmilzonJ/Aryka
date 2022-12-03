@@ -2,6 +2,7 @@ import {Route, Routes} from "react-router-dom";
 import {PrivateRoute} from "@/auth/components";
 import {Header} from "@/components";
 import {AppointmentList} from "@/features/appointments/components";
+import {ServicesList} from '@/features/services/components';
 import {Dashboard} from "@/pages";
 
 
@@ -21,7 +22,7 @@ export const PrivateRouter = () => {
         <Route element={<PrivateRoute/>}>
           <Route path="/" element={<Dashboard/>}/>
           <Route path="/citas" element={<AppointmentList />}/>
-          <Route path="/servicios" element={<Dashboard />}/>
+          <Route path="/servicios" element={<ServicesList />}/>
           <Route path="*" element={<NotFoundPage/>}/>
         </Route>
       </Routes>
