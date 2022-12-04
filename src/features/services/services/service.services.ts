@@ -1,5 +1,5 @@
 ﻿import {Service} from '@/features/services/models';
-import {collection, onSnapshot} from "firebase/firestore";
+import {collection, onSnapshot, doc, deleteDoc, setDoc} from "firebase/firestore";
 import {db} from "@/firebase";
 import {SnackbarUtilities} from "@/utilities";
 
@@ -16,4 +16,18 @@ export const getAllServices = (onDataChange: (services: Service[]) => void) => {
         },
     )
 }; 
+
+export const deleteService = async (idService: string) => {
+    //TO DO: ventana que pregunte al usuario si desea eliminar el servicio
+    await deleteDoc(doc(db, "services",idService));
+};
+
+export const updateService = (idService: string) =>{
+    
+};
+
+export const createService = async (service: Service[]) =>{
+    //const postID = postRef.key;
+    await setDoc(doc(db,"services","newId"),{service});
+}
 

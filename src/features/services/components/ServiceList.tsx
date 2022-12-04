@@ -1,4 +1,4 @@
-﻿import {getAllServices} from '@/features/services/services';
+﻿import {getAllServices,deleteService} from '@/features/services/services';
 import {useEffect, useState} from "react";
 import {Service} from '@/features/services/models';
 import {getAllAppointments} from "@/features/appointments/services";
@@ -10,6 +10,7 @@ import {DataTable, FormDialog} from "@/components";
 
 const onDelete = (id: string) => {
     console.log(id);
+    deleteService(id);
 }
 
 const columns: GridColDef[] = [
