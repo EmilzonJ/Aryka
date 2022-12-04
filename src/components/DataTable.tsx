@@ -12,8 +12,7 @@ export const DataTable = ({columns, rows, subtractHeight = '140px'}: DataTablePr
       <DataGrid
         rows={rows}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={9}
         loading={rows.length === 0}
       />
     </div>
