@@ -11,6 +11,7 @@ import {AuthProvider} from "@/auth";
 import {MainRouter} from "@/routers";
 
 export const App = () => {
+  console.log('App');
   return (
     <ThemeProvider theme={theme}>
       <SnackbarProvider>

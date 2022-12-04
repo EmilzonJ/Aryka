@@ -1,4 +1,4 @@
-import {ReactNode, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {User} from "firebase/auth";
 import {auth} from "@/firebase";
 import {AuthContext} from "@/context";
@@ -10,7 +10,7 @@ export const AuthProvider = ({children}: AuthProviderProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    return auth.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
       setUser(user)
       setIsAuthenticated(!!user)
       setIsLoading(false)

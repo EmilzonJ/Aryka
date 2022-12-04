@@ -1,72 +1,23 @@
 ﻿import {deleteService, getAllServices} from '@/features/services/services';
 import {useEffect, useState} from "react";
 import {Service} from '@/features/services/models';
-import {GridColDef, GridRenderCellParams} from "@mui/x-data-grid";
-import {Button} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import {DataTable, FormDialog, renderCellExpand} from "@/components";
+import {DataTable, FormDialog} from "@/components";
+import {serviceColumns} from "@/features/services/components";
+import {deleteWithConfirm} from "@/utilities";
 
-const onDelete = (id: string) => {
-  console.log(id);
-  deleteService(id);
-}
-
-const columns: GridColDef[] = [
-  {
-    field: 'name',
-    headerName: 'Nombre',
-    headerAlign: 'center',
-    align: 'center',
-    flex: 1,
-    minWidth: 200
-  },
-  {
-    field: 'price',
-    headerName: 'Precio',
-    headerAlign: 'center',
-    align: 'center',
-    flex: 1,
-    minWidth: 200
-  },
-  {
-    field: 'description',
-    headerName: 'Descripción',
-    headerAlign: 'center',
-    align: 'center',
-    flex: 1,
-    minWidth: 200,
-    renderCell: renderCellExpand
-  },
-  {
-    field: 'actions',
-    headerName: 'Acciones',
-    type: 'number',
-    sortable: false,
-    flex: 1,
-    minWidth: 200,
-    headerAlign: 'center',
-    align: 'center',
-    disableColumnMenu: true,
-    renderCell: (params: GridRenderCellParams) => {
-
-      return <>
-        <Button
-          startIcon={<EditIcon/>}
-          onClick={() => onDelete(params.row.id as string)}
-        />
-        <
-          Button
-          startIcon={<DeleteIcon/>}
-          onClick={() => onDelete(params.row.id as string)}
-        />
-      </>
-    },
-  }
-]
 export const ServicesList = () => {
   const [services, setServices] = useState<Service[]>([]);
 
+  const onDelete = async (id: string) => {
+    await deleteWithConfirm({
+      title: '¿Estás seguro de eliminar este servicio?',
+      action: async () => await deleteService(id),
+    })
+  }
+
+  const onEdit = (id: string) => {
+    console.log(id)
+  }
 
   useEffect(() => {
       const unsubscribe = getAllServices(
@@ -79,7 +30,7 @@ export const ServicesList = () => {
   return (
     <>
       <FormDialog/>
-      <DataTable columns={columns} rows={services}/>
+      <DataTable columns={serviceColumns} rows={services} onEdit={onEdit} onDelete={onDelete}/>
     </>
   )
 }
