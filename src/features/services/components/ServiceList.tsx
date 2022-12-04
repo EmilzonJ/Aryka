@@ -1,12 +1,11 @@
 ﻿import {getAllServices,deleteService} from '@/features/services/services';
 import {useEffect, useState} from "react";
 import {Service} from '@/features/services/models';
-import {getAllAppointments} from "@/features/appointments/services";
 import {GridColDef, GridRenderCellParams} from "@mui/x-data-grid";
 import {Button} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import {DataTable, FormDialog} from "@/components";
+import {DataTable, FormDialog, renderCellExpand} from "@/components";
 
 const onDelete = (id: string) => {
     console.log(id);
@@ -36,7 +35,8 @@ const columns: GridColDef[] = [
         headerAlign: 'center',
         align: 'center',
         flex: 1,
-        minWidth: 200
+        minWidth: 200,
+        renderCell: renderCellExpand
     },
     {
         field: 'actions',
@@ -74,9 +74,7 @@ export const ServicesList = () => {
     },
     []
     );
-    
-    // @ts-ignore
-    // @ts-ignore
+
     return(
         <>
             <FormDialog/>
