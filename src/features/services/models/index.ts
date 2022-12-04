@@ -1,1 +1,1 @@
-﻿export * from './services.models';
+﻿export * from './service.models';

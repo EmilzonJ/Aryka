@@ -1,1 +1,1 @@
-﻿export * from './users.models';
+﻿export * from './user.models';

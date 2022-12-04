@@ -1,1 +1,1 @@
-﻿export * from './service.services';
+﻿export * from './service-entity.service';
