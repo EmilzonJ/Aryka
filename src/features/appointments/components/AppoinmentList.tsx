@@ -6,7 +6,7 @@ import {Button} from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useAuth} from "@/context";
-import {DataTable, FormDialog} from "@/components";
+import {DataTable, FormDialog, renderCellExpand} from "@/components";
 import {toLocalDate} from "@/utilities";
 
 const onDelete = (id: number) => {
@@ -36,8 +36,8 @@ const columns: GridColDef[] = [
     headerAlign: 'center',
     align: 'center',
     flex: 1,
-    minWidth: 200
-
+    minWidth: 200,
+    renderCell: renderCellExpand
   },
   {
     field: 'startDate',
