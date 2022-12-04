@@ -70,6 +70,7 @@ const columns: GridColDef[] = [
     minWidth: 200,
     headerAlign: 'center',
     align: 'center',
+    disableColumnMenu: true,
     renderCell: (params: GridRenderCellParams) => {
 
       return <>
