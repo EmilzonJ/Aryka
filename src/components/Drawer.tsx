@@ -1,10 +1,19 @@
 import React, {useState} from "react";
 import {Drawer as MuiDrawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText,} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import {useNavigate} from "react-router-dom";
 
 const pages = ["Citas", "Servicios", "Usuarios"];
 export const Drawer = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
+
+  const navigate = useNavigate();
+  const handleNavigate = (page: string) => {
+    setOpenDrawer(!openDrawer);
+    const path = `/${page.toLowerCase()}`;
+    navigate(path);
+  }
+
 
   return (
     <React.Fragment>
@@ -22,7 +31,9 @@ export const Drawer = () => {
           }
         >
           {pages.map((page, index) => (
-            <ListItemButton key={index} sx={{
+            <ListItemButton
+              onClick={() => handleNavigate(page)}
+              key={index} sx={{
               justifyContent: "center",
               textAlign: "center",
               border: "1px solid #ccc",

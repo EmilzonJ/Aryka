@@ -20,14 +20,11 @@ export const Header = () => {
   }
   const onChange = (newValue: string) => {
     setValue(newValue);
-
   }
   const navigate = useNavigate();
   const handleNavigate = (path: string) => {
     navigate(path);
-
   }
-
 
   return (
     <React.Fragment>
@@ -35,7 +32,19 @@ export const Header = () => {
         position: "sticky",
       }}>
         <Toolbar>
-          <CalendarMonthRoundedIcon sx={{transform: "scale(1.5)"}}/>
+          <Button
+            sx={{
+              borderRadius: "100%",
+            }}
+            onClick={() => {
+              handleNavigate("/");
+              onChange("/")
+            }}
+          >
+            <CalendarMonthRoundedIcon
+              sx={{transform: "scale(1.5)"}}
+            />
+          </Button>
           {isMatch ? (
             <>
               <Typography sx={{fontSize: "1.7rem", paddingLeft: "5%"}}>

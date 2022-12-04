@@ -25,13 +25,8 @@ export const LoginForm = () => {
     resolver: yupResolver(LoginValidations)
   })
 
-  if (isLoading) {
-    return <Loader/>
-  }
-
-  if (isAuthenticated) {
-    return <Navigate to="/"/>
-  }
+  if (isLoading) return <Loader/>
+  if (isAuthenticated) return <Navigate to="/"/>
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>

@@ -1,6 +1,6 @@
 import {GridColDef, GridRenderCellParams} from "@mui/x-data-grid";
 import {Button} from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {useTableActionsContext} from "@/context/table-actions.context";
 
@@ -10,7 +10,7 @@ const Actions = ({id}: { id: string }) => {
   return <>
     {onEdit &&
         <Button
-            startIcon={<VisibilityIcon/>}
+            startIcon={<EditIcon/>}
             onClick={() => onEdit(id)}
         />
     }

@@ -8,7 +8,8 @@ import {SnackbarProvider} from 'notistack';
 import React from "react";
 
 import {AuthProvider} from "@/auth";
-import {MainRouter} from "@/routers";
+import {mainRouter} from "@/routers";
+import {RouterProvider} from "react-router-dom";
 
 export const App = () => {
   console.log('App');
@@ -17,9 +18,9 @@ export const App = () => {
       <SnackbarProvider>
         <SnackbarUtilsConfigurator/>
         <AuthProvider>
-          <MainRouter/>
+          <RouterProvider router={mainRouter} />
         </AuthProvider>
       </SnackbarProvider>
     </ThemeProvider>
-  )
+)
 }
