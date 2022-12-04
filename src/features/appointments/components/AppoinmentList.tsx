@@ -64,8 +64,7 @@ const columns: GridColDef[] = [
   },
   {
     field: 'actions',
-    headerName: 'Actions',
-    type: 'number',
+    headerName: 'Acciones',
     sortable: false,
     flex: 1,
     minWidth: 200,
