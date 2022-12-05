@@ -1,2 +1,2 @@
 export * from './AppoinmentList';
-export * from './appointment.columns';
+export * from './AppointmentCreate';

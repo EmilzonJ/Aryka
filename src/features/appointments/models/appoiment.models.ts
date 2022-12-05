@@ -10,3 +10,7 @@ export interface Appointment {
   endDate: Timestamp;
   userId: string;
 }
+
+export interface AppointmentCreateModel extends Omit<Appointment, "id" | "userId"> {
+  userId: string;
+}

@@ -48,5 +48,3 @@ export const Input = ({ required = false, register, name, errors, label = '', ty
     </div>
   );
 };
-
-export default Input;

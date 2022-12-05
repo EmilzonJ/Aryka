@@ -12,7 +12,6 @@ import {mainRouter} from "@/routers";
 import {RouterProvider} from "react-router-dom";
 
 export const App = () => {
-  console.log('App');
   return (
     <ThemeProvider theme={theme}>
       <SnackbarProvider>
