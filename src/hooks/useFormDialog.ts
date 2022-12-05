@@ -7,14 +7,17 @@ interface UseDialogProps<C, U> {
   resolver?: Resolver<FieldValues, any>;
   onCreateAction?: (data: unknown) => Promise<void>;
   onUpdateAction?: (data: unknown) => Promise<void>;
+  defaultValues?: Record<string, any>
 }
 
-export function useFormDialog<TCreate = FieldValues, TUpdate = FieldValues>({
-                                                                              mapper,
-                                                                              resolver,
-                                                                              onUpdateAction,
-                                                                              onCreateAction
-                                                                            }: UseDialogProps<TCreate, TUpdate> = {}) {
+export function useFormDialog<TCreate = FieldValues, TUpdate = FieldValues>(
+  {
+    mapper,
+    resolver,
+    onUpdateAction,
+    onCreateAction,
+    defaultValues
+  }: UseDialogProps<TCreate, TUpdate> = {}) {
 
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -22,7 +25,8 @@ export function useFormDialog<TCreate = FieldValues, TUpdate = FieldValues>({
 
   const form = useForm<FieldValues>({
     resolver,
-    mode: 'onChange'
+    mode: 'onChange',
+    defaultValues
   })
 
 

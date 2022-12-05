@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 
 import {yupResolver} from "@hookform/resolvers/yup";
 
-import {Box, Button, Grid, Typography} from "@mui/material";
+import {Box, Button, Grid, Stack, Typography} from "@mui/material";
 
 import {LoginOutlined} from "@mui/icons-material";
 
@@ -65,21 +65,26 @@ export const LoginForm = () => {
             Iniciar Sesión
           </Typography>
 
-          <Input
-            name="email"
-            type={InputType.TEXT}
-            register={register}
-            label="email"
-            errors={formState.errors}
-          />
+          <Stack
+            direction="column"
+            rowGap={2}
+          >
+            <Input
+              name="email"
+              type={InputType.TEXT}
+              register={register}
+              label="email"
+              errors={formState.errors}
+            />
 
-          <Input
-            name="password"
-            type={InputType.PASSWORD}
-            register={register}
-            label="password"
-            errors={formState.errors}
-          />
+            <Input
+              name="password"
+              type={InputType.PASSWORD}
+              register={register}
+              label="password"
+              errors={formState.errors}
+            />
+          </Stack>
 
           <Button
             type="submit"

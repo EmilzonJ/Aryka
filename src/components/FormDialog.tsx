@@ -55,13 +55,13 @@ export const FormDialog: FC<PropsWithChildren<FormDialogProps>> = (props) => {
         >
           {isCreating ? 'Crear ' : 'Editar '} {title}
         </Typography>
-        <FormDialogContext.Provider value={{isEditing, isCreating}}>
+        <FormDialogContext.Provider value={{isEditing, isCreating, open}}>
           <FormProvider   {...form}>
             {children}
           </FormProvider>
         </FormDialogContext.Provider>
 
-        <Stack direction='row' justifyContent='center' columnGap={3} mb={2}>
+        <Stack direction='row' justifyContent='center' columnGap={3} mb={2} mt={2}>
           <Button
             onClick={handleClose}
             variant="contained"

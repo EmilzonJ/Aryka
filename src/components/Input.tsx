@@ -42,7 +42,7 @@ export const Input = ({ required = false, register, name, errors, label = '', ty
         {...(inputProps && { inputProps: inputProps })}
         onChange={() => trigger?.()}
         fullWidth
-        margin="normal"
+        margin="none"
       />
       {errors && formValidation(errors, name)}
     </div>

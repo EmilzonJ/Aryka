@@ -1,5 +1,5 @@
 import * as React from 'react';
-import dayjs, {Dayjs} from 'dayjs';
+import dayjs from 'dayjs';
 import TextField from '@mui/material/TextField';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
@@ -15,7 +15,7 @@ interface DateTimePickerProps {
 }
 
 export const DateTimePicker = ({name, label, inputProps}: DateTimePickerProps) => {
-   const {control, setError} = useFormContext();
+  const {control, setError} = useFormContext();
   const {
     field,
     fieldState: {error},
@@ -26,12 +26,7 @@ export const DateTimePicker = ({name, label, inputProps}: DateTimePickerProps) =
   });
 
   return (
-    <div
-      style={{
-        marginTop: 12,
-        marginBottom: 12
-      }}
-    >
+    <div>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <MuiDateTimePicker
           renderInput={(params) => <TextField {...params} error={!!error}/>}

@@ -1,9 +1,15 @@
-import {deleteAppointment, getAllAppointments} from "@/features/appointments/services";
+import {
+  createAppointment,
+  deleteAppointment,
+  getAllAppointments,
+  getAppointmentById,
+  updateAppointment
+} from "@/features/appointments/services";
 import {useEffect, useState} from "react";
-import {Appointment, AppointmentCreateModel} from "@/features/appointments/models";
+import {Appointment, AppointmentUpsertModel} from "@/features/appointments/models";
 import {useAuth} from "@/context";
 import {DataTable, FormDialog} from "@/components";
-import {AppointmentCreate} from "@/features/appointments/components";
+import {AppointmentUpsert} from "@/features/appointments/components";
 import {appointmentColumns} from "@/features/appointments/utils";
 import {deleteWithConfirm} from "@/utilities";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -12,10 +18,10 @@ import {useFormDialog} from "@/hooks";
 
 export const AppointmentList = () => {
   const {user} = useAuth()
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointments, setAppointments] = useState<Appointment[]>([])
+  const [selectedRowId, setSelectedRowId] = useState('')
 
   const onDelete = async (id: string) => {
-    console.log(id)
     await deleteWithConfirm({
       title: '¿Estás seguro de eliminar esta cita?',
       action: async () => await deleteAppointment(id),
@@ -32,12 +38,12 @@ export const AppointmentList = () => {
 
   const formDialog = useFormDialog({
     onCreateAction: async (data: unknown) => {
-      console.log(data)
-      console.log('create');
+      const appointment = data as AppointmentUpsertModel;
+      appointment.userId = user?.uid as string;
+      await createAppointment(appointment);
     },
     onUpdateAction: async (data: unknown) => {
-      console.log(data)
-      console.log('update');
+      await updateAppointment(data as AppointmentUpsertModel, selectedRowId);
     },
     resolver: yupResolver(appointmentEditValidationSchema),
     mapper: (data) => {
@@ -46,20 +52,27 @@ export const AppointmentList = () => {
         startDate: data?.startDate?.toDate(),
         endDate: data?.endDate?.toDate(),
       }
-    }
+    },
+    defaultValues: {services: []},
   });
 
-  const onEdit = (id: string) => {
-    const appointment = appointments.find((appointment) => appointment.id === id);
-    formDialog.handleEdit(appointment as AppointmentCreateModel);
+  const onEdit = async (id: string) => {
+    setSelectedRowId(id);
+    const appointment = await getAppointmentById(id);
+    formDialog.handleEdit(appointment);
   }
 
   return (
     <>
       <FormDialog {...formDialog} title="Citas">
-        <AppointmentCreate/>
+        <AppointmentUpsert/>
       </FormDialog>
-      <DataTable columns={appointmentColumns} rows={appointments} onEdit={onEdit} onDelete={onDelete}/>
+      <DataTable
+        columns={appointmentColumns}
+        rows={appointments}
+        onEdit={onEdit}
+        onDelete={onDelete}
+      />
     </>
   )
 }
