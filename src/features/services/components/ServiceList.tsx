@@ -1,4 +1,10 @@
-﻿import {createService, deleteService, getAllServices} from '@/features/services/services';
+﻿import {
+  createService,
+  deleteService,
+  getAllServices,
+  getServiceById,
+  updateService
+} from '@/features/services/services';
 import {useEffect, useState} from "react";
 import {Service, ServiceUpsertModel} from '@/features/services/models';
 import {DataTable, FormDialog} from "@/components";
@@ -9,6 +15,7 @@ import {ServiceUpsert} from "@/features/services/components/ServiceUpsert";
 
 export const ServicesList = () => {
   const [services, setServices] = useState<Service[]>([]);
+  const [selectedRowId, setSelectedRowId] = useState('');
 
   const onDelete = async (id: string) => {
     await deleteWithConfirm({
@@ -16,10 +23,7 @@ export const ServicesList = () => {
       action: async () => await deleteService(id),
     })
   }
-
-  const onEdit = (id: string) => {
-    console.log(id)
-  }
+  
 
   useEffect(() => {
       const unsubscribe = getAllServices(
@@ -33,9 +37,19 @@ export const ServicesList = () => {
       onCreateAction: async (data: unknown) => {
           console.log(data);
           await createService(data as ServiceUpsertModel);
-      }
-  })
+      },
+    onUpdateAction: async (data: unknown) =>
+    {
+      console.log(data);
+      await updateService(selectedRowId,data as ServiceUpsertModel);
+    }  })
 
+  const onEdit = async (id: string) => {
+    setSelectedRowId(id);
+    const service = await getServiceById(id);
+    formDialog.handleEdit(service);
+  }
+  
   return (
     <>
       <FormDialog title="Servicios" {...formDialog} >

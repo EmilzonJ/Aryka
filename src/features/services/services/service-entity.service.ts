@@ -1,5 +1,5 @@
 ﻿import {Service, ServiceUpsertModel} from '@/features/services/models';
-import {collection, deleteDoc, doc, getDoc, onSnapshot,addDoc} from "firebase/firestore";
+import {collection, deleteDoc, doc, getDoc, onSnapshot,addDoc, setDoc} from "firebase/firestore";
 import {db} from "@/firebase";
 import {SnackbarUtilities} from "@/utilities";
 
@@ -16,6 +16,11 @@ export const getAllServices = (onDataChange: (services: Service[]) => void) => {
   )
 };
 
+export const getServiceById = async (id: string) => {
+  const serviceRef = doc(db, "services", id);
+  const serviceDoc = await getDoc(serviceRef);
+  return serviceDoc.data() as Service;
+}
 export const getServicesByIds = async (servicesIds: string[] = []): Promise<Service[]> => {
   const services: Service[] = [];
   for (const serviceId of servicesIds) {
@@ -37,8 +42,14 @@ export const deleteService = async (idService: string) => {
   }
 };
 
-export const updateService = (idService: string) => {
-
+export const updateService = async (id: string, service: ServiceUpsertModel) => {
+  try {
+    await setDoc(doc(db,"services", id), service);
+    SnackbarUtilities.success("Servicio editado correctamente");
+  }catch(error){
+    console.log(error);
+    SnackbarUtilities.error("Error al editar el servicio");
+  }
 };
 
 export const createService = async (service: ServiceUpsertModel) => {
