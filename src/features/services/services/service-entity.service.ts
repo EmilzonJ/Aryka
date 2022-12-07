@@ -1,5 +1,5 @@
-﻿import {Service} from '@/features/services/models';
-import {collection, deleteDoc, doc, getDoc, onSnapshot, setDoc} from "firebase/firestore";
+﻿import {Service, ServiceUpsertModel} from '@/features/services/models';
+import {collection, deleteDoc, doc, getDoc, onSnapshot,addDoc} from "firebase/firestore";
 import {db} from "@/firebase";
 import {SnackbarUtilities} from "@/utilities";
 
@@ -41,8 +41,15 @@ export const updateService = (idService: string) => {
 
 };
 
-export const createService = async (service: Service[]) => {
+export const createService = async (service: ServiceUpsertModel) => {
   //const postID = postRef.key;
-  await setDoc(doc(db, "services", "newId"), {service});
+  try {
+    console.log(service);
+    await addDoc(collection(db,"services"), {...service});
+    SnackbarUtilities.success("Servicio creado correctamente");
+  }catch(error){
+    console.log(error);
+    SnackbarUtilities.error('Error al crear el servicio');
+  }
 }
 

@@ -1,9 +1,11 @@
-﻿import {deleteService, getAllServices} from '@/features/services/services';
+﻿import {createService, deleteService, getAllServices} from '@/features/services/services';
 import {useEffect, useState} from "react";
-import {Service} from '@/features/services/models';
+import {Service, ServiceUpsertModel} from '@/features/services/models';
 import {DataTable, FormDialog} from "@/components";
 import {serviceColumns} from "@/features/services/components";
 import {deleteWithConfirm} from "@/utilities";
+import {useFormDialog} from "@/hooks";
+import {ServiceUpsert} from "@/features/services/components/ServiceUpsert";
 
 export const ServicesList = () => {
   const [services, setServices] = useState<Service[]>([]);
@@ -26,10 +28,19 @@ export const ServicesList = () => {
     },
     []
   );
+  
+  const formDialog= useFormDialog({
+      onCreateAction: async (data: unknown) => {
+          console.log(data);
+          await createService(data as ServiceUpsertModel);
+      }
+  })
 
   return (
     <>
-      <FormDialog/>
+      <FormDialog title="Servicios" {...formDialog} >
+          <ServiceUpsert/>
+      </FormDialog>
       <DataTable columns={serviceColumns} rows={services} onEdit={onEdit} onDelete={onDelete}/>
     </>
   )
