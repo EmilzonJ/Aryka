@@ -1,11 +1,11 @@
 ﻿import {Grid} from "@mui/material";
-import {useForm, useFormContext} from "react-hook-form";
+import {useFormContext} from "react-hook-form";
 import {useFormDialogContext} from "@/context";
 import {Input, InputType} from "@/components";
 
 export const UserUpsert = () => {
   const form = useFormContext();
-  const {isCreating, open} = useFormDialogContext();
+  const {isCreating, open, isEditing} = useFormDialogContext();
   const {register, formState} = form;
 
   return (
@@ -44,6 +44,7 @@ export const UserUpsert = () => {
           register={register}
           label="E-mail"
           errors={formState.errors}
+          disabled={isEditing}
         />
       </Grid>
       <Grid
@@ -78,7 +79,7 @@ export const UserUpsert = () => {
       >
         <Input
           required
-          name="Area"
+          name="area"
           type={InputType.TEXT}
           register={register}
           label="Area en la que labora"

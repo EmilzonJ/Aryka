@@ -1,6 +1,11 @@
-﻿import {getAllUsers, UserUpsertData} from "@/features";
+﻿import {
+  getAllUsers, getServiceById, getUserById,
+  ServiceUpsertModel,
+  updateUser,
+  UserUpsertData
+} from "@/features";
 import {useEffect, useState} from "react";
-import {User} from '@/features/users/models';
+import {User, UserDataEdit} from '@/features/users/models';
 import {DataTable, FormDialog} from "@/components";
 import {userColumns} from "@/features/users/components/users.columns";
 import {deleteWithConfirm} from "@/utilities";
@@ -13,6 +18,7 @@ import {userAddValidationSchema} from "@/features/users/validations/user-add.val
 
 export const UsersList = () => {
   const [users, setUsers] = useState<User[]>([]);
+  const [selectedRowId, setSelectedRowId] = useState('');
 
   const onDelete = async (idUsers: string) => {
     await deleteWithConfirm({
@@ -31,9 +37,18 @@ export const UsersList = () => {
   const formDialog = useFormDialog({
     onCreateAction: async (data: unknown) => {
       await createUser(data as UserUpsertData);
-      yupResolver(userAddValidationSchema)
+
+    },
+    resolver: yupResolver(userAddValidationSchema),
+    onUpdateAction: async (data: unknown) => {
+      await updateUser(selectedRowId, data as UserDataEdit);
     }
-  });
+  })
+  const onEdit = async (id: string) => {
+    setSelectedRowId(id);
+    const user = await getUserById(id);
+    formDialog.handleEdit(user);
+  }
   return (
     <>
       <FormDialog title="Usuarios" {...formDialog}>
@@ -43,6 +58,7 @@ export const UsersList = () => {
         columns={userColumns}
         rows={users}
         onDelete={onDelete}
+        onEdit={onEdit}
       />
     </>
   )

@@ -14,3 +14,6 @@ export interface UserFirebaseAuth extends Omit<UserUpsertData, "cel" | "area"> {
     uid: string;
 }
 
+export interface UserDataEdit extends Omit<User, "id" | "email">{
+  
+}
